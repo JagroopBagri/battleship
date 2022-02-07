@@ -1,0 +1,1 @@
+(()=>{"use strict";const t=(!0,{length:3,hitLocation:Array(3).fill(!1),operational:true,receivedHit:(t,e)=>(t[e]=!0,1),isSunk:t=>{const e=t.length;let o=0;return t.forEach((t=>!0===t?(o+=1,o):o)),o===e}});console.log(t)})();
