@@ -24,34 +24,64 @@ export const createGameBoard = () => {
     // board for the game
     boardArray: boardArray,
     // function that places ships at specific coordinates and returns the ship object
-    placeShip: (shipLength, axis, x, y) => {
+    placeShip: function (shipLength, axis, x, y) {
+      // variable that checks to see if a ship is already occupying the selected place
+      let occupied = false;
       // create a ship object
       let ship = createShip(shipLength);
-      // check to see if ship is going to go out of bounds (using 9 instead of 10 because we count starting from zero)
+      // check to see if ship is going to go out of bounds (using 9 instead of 10 because we start counting from zero)
       if (x > 9 || y > 9) {
-        return 'Not a valid position';
+        return 'Error';
       }
       // if shape is going to be placed horizontally
       if (axis === 'x') {
         // checks to see if ship is going to go out of bounds in the x axis
         if (10 - x < shipLength) {
-          return 'Cannot place ship there';
+          return 'Error';
         }
+        // for loop that checks to see if ship is going to touch another ship and updates the occupied variable if a ship will be touched
         for (let i = 0; i < shipLength; i++) {
-          this.boardArray[y][x + i] = 'ship';
+          if (this.boardArray[y][x + i] === 'ship') {
+            occupied = true;
+          }
         }
-        return ship;
+        // check if ship can be placed in that location or if it will interesect another ship
+        if (occupied === false) {
+          // for loop that updates board array when a ship is placed
+          for (let i = 0; i < shipLength; i++) {
+            // mark board array with positions of placed ship
+            this.boardArray[y][x + i] = 'ship';
+          }
+          // return the ship object
+          return ship;
+        }
+        // return error if ship cannot be placed there
+        return 'Error';
       }
-      // if ship is going to be placed vertically
+      // if shape is going to be placed vertically
       if (axis === 'y') {
         // checks to see if ship is going to go out of bounds in the y axis
         if (10 - y < shipLength) {
-          return 'Cannot place ship there';
+          return 'Error';
         }
+        // for loop that checks to see if ship is going to touch another ship and updates the occupied variable if a ship will be touched
         for (let i = 0; i < shipLength; i++) {
-          this.boardArray[y + i][x] = 'ship';
+          if (this.boardArray[y + i][x] === 'ship') {
+            occupied = true;
+          }
         }
-        return ship;
+        // check if ship can be placed in that location or if it will interesect another ship
+        if (occupied === false) {
+          // for loop that updates board array when a ship is placed
+          for (let i = 0; i < shipLength; i++) {
+            // mark board array with positions of placed ship
+            this.boardArray[y + i][x] = 'ship';
+          }
+          // return the ship object
+          return ship;
+        }
+        // return error if ship cannot be placed there
+        return 'Error';
       }
     },
   };
