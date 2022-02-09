@@ -90,4 +90,48 @@ describe('testing gameboard factory function', () => {
     ];
     expect(gameBoard1.boardArray).toEqual(testArray);
   });
+  test('ship property is properly updated', () => {
+    let gameBoard1 = createGameBoard();
+    gameBoard1.placeShip(3, 'x', 1, 1);
+    let ship = {
+      length: 3,
+      hits: 0,
+      operational: true,
+      receivedHit: function () {
+        this.hits += 1;
+        return 1;
+      },
+      isSunk: function () {
+        if (this.hits === this.length) {
+          this.operational = false;
+          return true;
+        }
+        return false;
+      },
+    };
+    expect(JSON.stringify(gameBoard1.fleet[0])).toEqual(JSON.stringify(ship));
+  });
+  test('gameboard notifies the correct ship that it has been hit', () => {
+    let gameBoard1 = createGameBoard();
+    let ship1 = gameBoard1.placeShip(5, 'x', 1, 4);
+    let ship2 = gameBoard1.placeShip(2, 'x', 0, 0);
+    gameBoard1.receiveAttack(0, 0);
+    expect(ship2.hits).toBe(1);
+  });
+  test('gameboard notifies the correct ship that it has been hit', () => {
+    let gameBoard1 = createGameBoard();
+    let ship1 = gameBoard1.placeShip(5, 'x', 1, 4);
+    let ship2 = gameBoard1.placeShip(2, 'x', 0, 0);
+    gameBoard1.receiveAttack(0, 0);
+    gameBoard1.receiveAttack(1, 0);
+    expect(ship2.hits).toBe(2);
+  });
+  test('gameboard notifies the correct ship that it has been hit', () => {
+    let gameBoard1 = createGameBoard();
+    let ship1 = gameBoard1.placeShip(5, 'x', 1, 4);
+    let ship2 = gameBoard1.placeShip(2, 'x', 0, 0);
+    gameBoard1.receiveAttack(0, 0);
+    gameBoard1.receiveAttack(1, 0);
+    expect(ship1.hits).toBe(0);
+  });
 });

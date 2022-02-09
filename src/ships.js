@@ -1,8 +1,6 @@
 // factory function that creates ships
 
 export const createShip = (length) => {
-  // creats an array that shows the ships length and which parts of it have been hit
-  const shipLocations = Array(length).fill(false);
   // factory function returns an array
   return {
     // length of the ship

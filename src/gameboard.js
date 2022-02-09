@@ -23,6 +23,8 @@ export const createGameBoard = () => {
   return {
     // board for the game
     boardArray: boardArray,
+    // an array that stores the ships on the board
+    fleet: [],
     // method that places ships at specific coordinates and returns the ship object
     placeShip: function (shipLength, axis, x, y) {
       // variable that checks to see if a ship is already occupying the selected place
@@ -52,8 +54,10 @@ export const createGameBoard = () => {
             // mark board array with positions of placed ship
             this.boardArray[y][x + i] = 'ship' + shipLength;
           }
-          // return the ship object
-          return ship;
+          // push ship object to fleet array
+          this.fleet.push(ship);
+          // return location of ship
+          return this.fleet[this.fleet.length - 1];
         }
         // return error if ship cannot be placed there
         return 'Error';
@@ -77,8 +81,10 @@ export const createGameBoard = () => {
             // mark board array with positions of placed ship
             this.boardArray[y + i][x] = 'ship' + shipLength;
           }
-          // return the ship object
-          return ship;
+          // push ship object to fleet array
+          this.fleet.push(ship);
+          // return location of ship
+          return this.fleet[this.fleet.length - 1];
         }
         // return error if ship cannot be placed there
         return 'Error';
@@ -86,6 +92,10 @@ export const createGameBoard = () => {
     },
     // method that determines if an attack has hit a ship and updates the ship objects along with board array
     receiveAttack: function (x, y) {
+      // if attack targets a location that has already been attacked then return an error
+      if (this.boardArray[y][x] === 'miss' || this.boardArray[y][x] === 'hit') {
+        return 'Error';
+      }
       // if attack misses then update board array and return
       if (this.boardArray[y][x] === '-') {
         // mark location as missed
@@ -93,9 +103,16 @@ export const createGameBoard = () => {
         // return
         return 'Miss';
       }
-      // if attack hits a ship then update board array and ship that was hit
+      // get length of ship that was hit
+      let num = Number(this.boardArray[y][x].replace(/[^0-9]/g, ''));
+      // find index of ship that was hit
+      let shipIndex = this.fleet.findIndex((element) => element.length == num);
+      // update ship that was hit
+      this.fleet[shipIndex].hits += 1;
       // update board array location as hit
       this.boardArray[y][x] = 'hit';
+      // return 1
+      return 1;
     },
   };
 };
