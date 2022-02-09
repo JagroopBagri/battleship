@@ -7,39 +7,26 @@ export const createShip = (length) => {
   return {
     // length of the ship
     length,
-    // individuallocations of the ship
-    hitLocation: shipLocations,
+    // hits that the ship has taken
+    hits: 0,
     // shows if the ship is operational
     operational: true,
     // method that take the ship object and location as parameters and marks a hitLocation as true (been hit)
-    receivedHit: function (num) {
+    receivedHit: function () {
       // change the location hit from false to true
-      this.hitLocation[num] = true;
+      this.hits += 1;
       return 1;
     },
     // method that checks to see if the ship has sunk
     isSunk: function () {
-      // retrieve the length of the ship
-      const totalLength = this.length;
-      // hit counter which starts at zero
-      let hit = 0;
-      // for each location on the ship check which ones have been hit
-      this.hitLocation.forEach((element) => {
-        // if a location has been hit than add 1 to the hit counter
-        if (element === true) {
-          hit += 1;
-          return hit;
-        }
-        return hit;
-      });
-      // if the hit counter equals the total length of the ship than the ship has sunk
-      if (hit === totalLength) {
+      // check if ship has been hit in all locations
+      if (this.hits === this.length) {
         // update ship operational key to show that the ship is not operational
         this.operational = false;
         // return true if the ship has sunk
         return true;
       }
-      // return false if the ship has not sunk
+      //return false if the ship is still operational
       return false;
     },
   };
