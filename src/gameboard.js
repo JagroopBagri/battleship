@@ -90,7 +90,7 @@ export const createGameBoard = () => {
         return 'Error';
       }
     },
-    // method that determines if an attack has hit a ship and updates the ship objects along with board array
+    // method that determines if an attack has hit a ship and updates the ship objects along with board array. returns if the user has lost all of their ships.
     receiveAttack: function (x, y) {
       // if attack targets a location that has already been attacked then return an error
       if (this.boardArray[y][x] === 'miss' || this.boardArray[y][x] === 'hit') {
@@ -111,7 +111,21 @@ export const createGameBoard = () => {
       this.fleet[shipIndex].hits += 1;
       // update board array location as hit
       this.boardArray[y][x] = 'hit';
-      // return 1
+      // variable that tracks how many of the gameboards ships have sunk
+      let sunkenShips = 0;
+      // iterate thru fleet and determine if all ships have been sunk
+      for (let i = 0; i < this.fleet.length; i++) {
+        // check if ship has sunk
+        let result = this.fleet[i].isSunk();
+        if (result === true) {
+          sunkenShips++;
+        }
+      }
+      // if gameboard has lost all ships then return 'game over'
+      if (sunkenShips === this.fleet.length) {
+        return 'Game Over';
+      }
+      // otherwise return 1
       return 1;
     },
   };
