@@ -134,11 +134,11 @@ describe('testing gameboard factory function', () => {
     gameBoard1.receiveAttack(1, 0);
     expect(ship1.hits).toBe(0);
   });
-  test('receive attack method returns 1 when a ship has been hit, but not all ships have been sunk', () => {
+  test('receive attack method returns "Hit" when a ship has been hit, but not all ships have been sunk', () => {
     let gameBoard1 = createGameBoard();
     let ship1 = gameBoard1.placeShip(2, 'x', 0, 0);
     let result = gameBoard1.receiveAttack(0, 0);
-    expect(result).toBe(1);
+    expect(result).toBe('Hit');
   });
   test('receive attack method returns "miss" when attack has missed', () => {
     let gameBoard1 = createGameBoard();
@@ -156,7 +156,11 @@ describe('testing gameboard factory function', () => {
   test('receive attack method returns "Game Over" when whole fleet has been sunk', () => {
     let gameBoard1 = createGameBoard();
     let ship1 = gameBoard1.placeShip(2, 'x', 0, 0);
+    let ship2 = gameBoard1.placeShip(3, 'y', 2, 2);
     gameBoard1.receiveAttack(0, 0);
+    gameBoard1.receiveAttack(2, 2);
+    gameBoard1.receiveAttack(2, 3);
+    gameBoard1.receiveAttack(2, 4);
     let result = gameBoard1.receiveAttack(1, 0);
     expect(result).toBe('Game Over');
   });

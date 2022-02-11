@@ -90,7 +90,12 @@ export const createGameBoard = () => {
         return 'Error';
       }
     },
-    // method that determines if an attack has hit a ship and updates the ship objects along with board array. returns if the user has lost all of their ships.
+    // method that determines if an attack has hit a ship and updates the ship objects along with board array.
+    // NOTE: identity of a ship is established thru its length, so no two ships on the same gameboard can have the same length or recieveAttack function will not work properly.
+    // returns 'Error' if attack is recieved at same location twice
+    // returns 'Miss' if attack did not hit a ship
+    // returns 'Hit' if attack hits a ship but fleet is still active
+    // returns 'Game Over' if attack hits a ship and whole fleet has sunk
     receiveAttack: function (x, y) {
       // if attack targets a location that has already been attacked then return an error
       if (this.boardArray[y][x] === 'miss' || this.boardArray[y][x] === 'hit') {
@@ -125,8 +130,8 @@ export const createGameBoard = () => {
       if (sunkenShips === this.fleet.length) {
         return 'Game Over';
       }
-      // otherwise return 1
-      return 1;
+      // otherwise return 'Hit'
+      return 'Hit';
     },
   };
 };
