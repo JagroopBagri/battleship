@@ -32,6 +32,7 @@ section {
   width: 90%;
   height: 75%;
   min-width: 590px;
+  max-width: 1200px;
 }
 .footer {
   height: 5%;
@@ -53,12 +54,13 @@ section {
   height: 99%;
 }
 .game-setup {
-  position: relative;
   width: 20%;
   height: 99%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
 }
 .player-gameboard {
   aspect-ratio: 1 / 1;
@@ -82,4 +84,45 @@ section {
   border-width: 1px;
   height: 10%;
   width: 10%;
+}
+.computerSquare {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  height: 10%;
+  width: 10%;
+}
+button {
+  height: 10%;
+  max-height: 40px;
+  width: 75%;
+  border-radius: 5px;
+  border-style: solid;
+  box-shadow: 1px 1px darkgrey;
+}
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0px 0px;
+}
+.axis-options {
+  height: 10%;
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20%;
+}
+.XandY {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.unplaced-ships {
+  border-style: solid;
+  width: 99%;
+  height: 65%;
 }
