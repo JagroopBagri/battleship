@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  min-height: 500px;
+  width: 100vw;
+  min-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+section {
+  border-style: solid;
+  border-width: 1px;
+}
+.title {
+  text-align: center;
+  height: 20%;
+  width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+  height: 75%;
+  min-width: 590px;
+}
+.footer {
+  height: 5%;
+}
+.player-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 99%;
+}
+.computer-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 99%;
+}
+.game-setup {
+  position: relative;
+  width: 20%;
+  height: 99%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.player-gameboard {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-wrap: wrap;
+  border-style: solid;
+  width: 95%;
+}
+.computer-gameboard {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-wrap: wrap;
+  border-style: solid;
+  width: 95%;
+}
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  height: 10%;
+  width: 10%;
+}
