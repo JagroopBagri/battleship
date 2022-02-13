@@ -3,7 +3,7 @@
 import { createShip } from './ships';
 import { createGameBoard } from './gameboard';
 import { createPlayer } from './player';
-import { initializeDOMElements, boardArrayToDOM } from './dom';
+import { initializeDOMElements, boardArrayToDOM, updateBoard } from './dom';
 
 const startApp = () => {
   let dom = initializeDOMElements();
@@ -16,15 +16,15 @@ const startApp = () => {
   playerGameBoard.placeShip(4, 'y', 5, 1);
   playerGameBoard.placeShip(3, 'x', 7, 6);
   playerGameBoard.placeShip(2, 'y', 9, 4);
-  // append player 1 ships to the DOM
-  boardArrayToDOM(playerGameBoard.boardArray, dom.playerBoard);
+  // update player 1 game board
+  updateBoard(playerGameBoard.boardArray, dom.playerBoard);
   // place computer ships
   computerGameBoard.placeShip(5, 'x', 0, 0);
   computerGameBoard.placeShip(4, 'y', 5, 1);
   computerGameBoard.placeShip(3, 'x', 7, 6);
   computerGameBoard.placeShip(2, 'y', 9, 4);
-  // append computer ships to the DOM
-  boardArrayToDOM(computerGameBoard.boardArray, dom.computerBoard, true);
+  // update computers gameboard
+  updateBoard(computerGameBoard.boardArray, dom.computerBoard, true);
 };
 
 startApp();
